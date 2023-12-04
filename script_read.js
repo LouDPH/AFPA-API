@@ -24,7 +24,15 @@ var nbrUser = document.getElementById("nbrUser");
                 + "</br>";
         }
         affichage.innerHTML = liste;
-        nbrUser.innerHTML = donnees.users.records.length;
+        var nombreUtilisateurs = donnees.users.records.length
+
+        if(nombreUtilisateurs == 0) {
+            nbrUser.innerHTML = "Il y a aucun utilisateur enregistré";
+        } else if (nombreUtilisateurs == 1) {
+            nbrUser.innerHTML = "Il y a un seul utilisateur enregistré";
+        } else {   
+            nbrUser.innerHTML = nombreUtilisateurs;
+        }
         // console.log(donnees);
         // console.log(donnees.users);
         // console.log("records " + donnees.users.records);
