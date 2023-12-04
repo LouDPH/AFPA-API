@@ -1,4 +1,39 @@
 var affichage = document.getElementById("affichage");
+var btnEnvoyer = document.getElementById("envoi"); // Bouton envoyer
+var btnRefresh = document.getElementById("refresh"); // Bouton rafraichir
+
+btnEnvoyer.addEventListener("click", checkForm); // Abonnement bouton envoyer
+btnRefresh.addEventListener("click", refresh); // Abonnement bouton rafraichir
+
+function checkForm(event){
+    event.preventDefault();
+
+    var id = document.getElementById("id").value;
+    var nom = document.getElementById("nom").value;
+    var prenom = document.getElementById("prenom").value;
+    var email = document.getElementById("email").value;
+
+    mauvaisId = controle();
+
+    if(!id.includes(mauvaisId)){
+        if(erreur.innerHTML == "") erreur.innerHTML += "ID NON DISPONIBLE";
+        return false
+    }
+
+    let data = {
+        id: id,
+        nom: nom,
+        prenom: prenom,
+        email: email,
+      };
+
+    post(JSON.stringify(data));
+}
+
+function refresh(){
+    erreur.innerHTML = "";
+}
+
 // GET
 fetch("http://fbrc.esy.es/DWWM22053/Api/api.php/users")
 .then((reponse) => {
@@ -66,4 +101,12 @@ function controle() {
         }
         console.log(tId)
     })
+}
+
+function donneId (tabID) {
+    for (let i in tabID) {
+        if (i !== tabID[i]) {
+            return i;
+        }
+    }
 }
