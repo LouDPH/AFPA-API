@@ -11,25 +11,28 @@
 <body>
     <h1>Créer un nouvel utilisateur</h1>
     <div id="affichage"></div>
+    
     <form action="" method="get">
-        <input type="text" name="id" required="required" id=""/>
+        <input type="text" name="id" id="id"/>
         <label for="id">ID </label>
         <br>
 
-        <input type="text" name="nom" required="required" id=""/>
+        <input type="text" name="nom" required="required" id="nom"/>
         <label for="nom">Nom </label>
         <br>
 
-        <input type="text" name="prenom" required="required" id=""/>
+        <input type="text" name="prenom" required="required" id="prenom"/>
         <label for="prenom">Prénom </label>
         <br>
 
-        <input type="email" name="email" required="required" id=""/>
+        <input type="email" name="email" required="required" id="email"/>
         <label for="email">Email </label>
         <br><br>
 
         <input type="submit" value="Envoyer" id="envoi"/>
         <input type="reset" value="Rafraichir" id="refresh"/>
     </form>
+    
+    <div id="erreur"></div>
 </body>
 </html>
