@@ -102,11 +102,3 @@ function controle() {
         console.log(tId)
     })
 }
-
-function donneId (tabID) {
-    for (let i in tabID) {
-        if (i !== tabID[i]) {
-            return i;
-        }
-    }
-}
