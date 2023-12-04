@@ -31,7 +31,6 @@
         // console.log("email " + donnees.users.records[0][email]); // retourne l'email
 })
 
-
 //POST
 function post(donnees, fonctSuccess, fonctError) {
     var requestOptions = {
