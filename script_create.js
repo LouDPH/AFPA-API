@@ -1,4 +1,9 @@
 var affichage = document.getElementById("affichage");
+
+var btnEnvoyer = document.getElementById("envoi"); // Bouton envoyer
+
+btnEnvoyer.addEventListener("click", checkForm); // Abonnement bouton envoyer
+
 // GET
 fetch("http://fbrc.esy.es/DWWM22053/Api/api.php/users")
 .then((reponse) => {
@@ -66,4 +71,18 @@ function controle() {
         }
         console.log(tId)
     })
+}
+
+// Attribue un ID
+function donneId (tabID) {
+    for (let i in tabID) {
+        if (i !== tabID[i]) {
+            return i;
+        }
+    }
+}
+
+
+function checkForm(){
+
 }
