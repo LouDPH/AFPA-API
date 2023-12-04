@@ -1,2 +1,76 @@
-fetch("http://fbrc.esy.es/DWWM22053/Api/api.php/users")
-.then (console.log("chargement ok"))
+// var affichage = document.getElementById("affichage");
+
+
+// // GET
+
+    fetch("http://fbrc.esy.es/DWWM22053/Api/api.php/users")
+    .then((reponse) => {
+        //console.log(reponse.json())
+        return reponse.json();
+    })
+    .then((donnees) => {
+        var idUser = 0;
+        var nom = 1;
+        var prenom = 2;
+        var email = 3;
+    
+        var liste = "";
+    
+        for(let i = 0; i < donnees.users.records.length; i++) {
+                console.log(donnees.users.records[i][email])
+                liste += "Id de l'utilisateur = " + donnees.users.records[i][idUser] + ", Nom : " + donnees.users.records[i][nom] +
+                ", Prénom : " + donnees.users.records[i][prenom] + ", email : " + donnees.users.records[i][email]
+                + "</br>";
+        }
+        affichage.innerHTML = liste;
+        // console.log(donnees);
+        // console.log(donnees.users);
+        // console.log("records " + donnees.users.records);
+        // console.log("nbr d'utilisateurs " + donnees.users.records.length); // retourne 1
+        // console.log("premier utilisateurs " + donnees.users.records[0]); // retourne le premier user
+        // console.log("email " + donnees.users.records[0][email]); // retourne l'email
+})
+
+//POST
+function post(donnees, fonctSuccess, fonctError) {
+    var requestOptions = {
+    method: "POST",
+    body: donnees,
+    redirect: "follow",
+    };
+
+    fetch('http://fbrc.esy.es/DWWM22053/Api/api.php/users', requestOptions)
+    .then((response) => response.text())
+};
+
+let data = {
+      id: "69",
+      nom: "Machin",
+      prenom: "Truc",
+      email: "bidule@gmail.com",
+    };
+
+//post(JSON.stringify(data));
+
+function controle() {
+    fetch("http://fbrc.esy.es/DWWM22053/Api/api.php/users")
+    .then((reponse) => {
+        //console.log(reponse.json())
+        return reponse.json();
+    })
+    .then((donnees) => {
+        var idUser = 0;
+        var nom = 1;
+        var prenom = 2;
+        var email = 3;
+
+        var tId = [];
+
+        for(let i = 0; i < donnees.users.records.length; i++) {
+            tId.push(donnees.users.records[i][idUser])
+        }
+        console.log(tId)
+    })
+}
+
+controle()
