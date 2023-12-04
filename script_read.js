@@ -59,4 +59,5 @@ const fetchUsers = async () => {
   
     }
   }
+  
   init()
