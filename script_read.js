@@ -1,4 +1,4 @@
-  /**
+/**
  
 Récupération des données de l'api REST
 @return {Promise<any>}
