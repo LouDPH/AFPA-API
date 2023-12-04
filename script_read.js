@@ -31,7 +31,7 @@ var nbrUser = document.getElementById("nbrUser");
         } else if (nombreUtilisateurs == 1) {
             nbrUser.innerHTML = "Il y a un seul utilisateur enregistré";
         } else {   
-            nbrUser.innerHTML = nombreUtilisateurs;
+            nbrUser.innerHTML = "Il y a " + nombreUtilisateurs + " utilisateurs enregistrés";
         }
         // console.log(donnees);
         // console.log(donnees.users);
