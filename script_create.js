@@ -3,27 +3,6 @@ var erreur = document.getElementById("erreur");
 var btnEnvoyer = document.getElementById("envoi"); // Bouton envoyer
 var btnRefresh = document.getElementById("refresh"); // Bouton rafraichir
 
-// Contrôle si l'ID est libre
-fetch("http://fbrc.esy.es/DWWM22053/Api/api.php/users")
-.then((reponse) => {
-    return reponse.json();
-})
-.then((donnees) => {
-    var idUser = 0;
-
-    var tId = [];
-
-    for(let i = 0; i < donnees.users.records.length; i++) {
-        tId.push(donnees.users.records[i][idUser])
-    }
-
-    for (let i = 1; i < tId.length; i++) {
-        if (!tId.includes(i)) {
-            id = i;
-         }
-    }
-})
-
 btnRefresh.addEventListener("click", refresh);
 
 function refresh(){
@@ -31,12 +10,33 @@ function refresh(){
 }
 
 btnEnvoyer.addEventListener("click", (e) => {
-    checkForm(e, id);
+    checkForm(e);
 }); // Abonnement bouton envoyer
 
-function checkForm(event, id){
+function checkForm(event){
     event.preventDefault();
     erreur.innerHTML = "";
+
+    // Contrôle si l'ID est libre
+    fetch("http://fbrc.esy.es/DWWM22053/Api/api.php/users")
+    .then((reponse) => {
+        return reponse.json();
+    })
+    .then((donnees) => {
+        var idUser = 0;
+
+        var tId = [];
+
+        for(let i = 0; i < donnees.users.records.length; i++) {
+            tId.push(donnees.users.records[i][idUser])
+        }
+
+        for (let i = 1; i < tId.length; i++) {
+            if (!tId.includes(i)) {
+                id = i;
+            }
+        }
+    })
 
     var nomInput = document.getElementById("nom");
     var prenomInput = document.getElementById("prenom");
@@ -113,7 +113,7 @@ fetch("http://fbrc.esy.es/DWWM22053/Api/api.php/users")
 });
 
 // Ajouter un utilisateur
-function post(donnees, fonctSuccess, fonctError) {
+function post(donnees) {
     var requestOptions = {
     method: "POST",
     body: donnees,
