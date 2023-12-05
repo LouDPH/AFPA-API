@@ -1,23 +1,79 @@
 var affichage = document.getElementById("affichage");
+var erreur = document.getElementById("erreur");
 var btnEnvoyer = document.getElementById("envoi"); // Bouton envoyer
 var btnRefresh = document.getElementById("refresh"); // Bouton rafraichir
 
-btnEnvoyer.addEventListener("click", checkForm); // Abonnement bouton envoyer
-btnRefresh.addEventListener("click", refresh); // Abonnement bouton rafraichir
+// Contrôle si l'ID est libre
+fetch("http://fbrc.esy.es/DWWM22053/Api/api.php/users")
+.then((reponse) => {
+    return reponse.json();
+})
+.then((donnees) => {
+    var idUser = 0;
 
-function checkForm(event){
+    var tId = [];
+
+    for(let i = 0; i < donnees.users.records.length; i++) {
+        tId.push(donnees.users.records[i][idUser])
+    }
+
+    for (let i = 1; i < tId.length; i++) {
+        if (!tId.includes(i)) {
+            id = i;
+         }
+    }
+})
+
+btnRefresh.addEventListener("click", refresh);
+
+function refresh(){
+    erreur.innerHTML = "";
+}
+
+btnEnvoyer.addEventListener("click", (e) => {
+    checkForm(e, id);
+}); // Abonnement bouton envoyer
+
+function checkForm(event, id){
     event.preventDefault();
+    erreur.innerHTML = "";
 
-    var id = document.getElementById("id").value;
-    var nom = document.getElementById("nom").value;
-    var prenom = document.getElementById("prenom").value;
-    var email = document.getElementById("email").value;
+    var nomInput = document.getElementById("nom");
+    var prenomInput = document.getElementById("prenom");
+    var emailInput = document.getElementById("email");
 
-    mauvaisId = controle();
+    var nom = nomInput.value;
+    var prenom = prenomInput.value;
+    var email = emailInput.value;
 
-    if(!id.includes(mauvaisId)){
-        if(erreur.innerHTML == "") erreur.innerHTML += "ID NON DISPONIBLE";
-        return false
+    var regexLettre = /[a-zA-Z]/;
+
+    if (validerEmail(email) === false) {
+        erreur.innerHTML += "La saisie de votre email est incorrecte.";
+        emailInput.focus();
+        return false;
+    }
+
+    if (nom.length < 3){
+        erreur.innerHTML += "Le nom doit contenir 3 caractères minimum.";
+        nomInput.focus();
+        return false;
+    }
+    else if(!regexLettre.test(nom)){
+        erreur.innerHTML += "Le nom ne doit comporter que des lettres.";
+        nomInput.focus();
+        return false;
+    }
+
+    if (prenom.length < 3){
+        erreur.innerHTML += "Le prénom doit contenir 3 caractères minimum.";
+        prenomInput.focus();
+        return false;
+    }
+    else if(!regexLettre.test(prenom)){
+        erreur.innerHTML += "Le prénom ne doit comporter que des lettres.";
+        prenomInput.focus();
+        return false;
     }
 
     let data = {
@@ -28,16 +84,17 @@ function checkForm(event){
       };
 
     post(JSON.stringify(data));
-}
+    setTimeout(function(){ location.reload(true); }, 500);
+};
 
-function refresh(){
-    erreur.innerHTML = "";
-}
+function validerEmail(email) { // Vérification format email
+    let regex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return regex.test(email); // retourne un boolean
+};
 
 // GET
 fetch("http://fbrc.esy.es/DWWM22053/Api/api.php/users")
 .then((reponse) => {
-    //console.log(reponse.json())
     return reponse.json();
 })
 .then((donnees) => {
@@ -49,18 +106,11 @@ fetch("http://fbrc.esy.es/DWWM22053/Api/api.php/users")
     var liste = "";
 
     for(let i = 0; i < donnees.users.records.length; i++) {
-        //console.log(donnees.users.records[i][email])
         liste += "Id de l'utilisateur = " + donnees.users.records[i][idUser] + ", Nom : " + donnees.users.records[i][nom] +
         ", Prénom : " + donnees.users.records[i][prenom] + ", email : " + donnees.users.records[i][email] + "<br>";
     }
     affichage.innerHTML = liste;
-    // console.log(donnees);
-    // console.log(donnees.users);
-    // console.log("records " + donnees.users.records);
-    // console.log("nbr d'utilisateurs " + donnees.users.records.length); // retourne 1
-    // console.log("premier utilisateurs " + donnees.users.records[0]); // retourne le premier user
-    // console.log("email " + donnees.users.records[0][email]); // retourne l'email
-})
+});
 
 // Ajouter un utilisateur
 function post(donnees, fonctSuccess, fonctError) {
@@ -73,40 +123,3 @@ function post(donnees, fonctSuccess, fonctError) {
     fetch('http://fbrc.esy.es/DWWM22053/Api/api.php/users', requestOptions)
     .then((response) => response.text())
 };
-
-let data = {
-      id: "6",
-      nom: "Garagiste",
-      prenom: "Le",
-      email: "test@gmail.com",
-    };
-
-//post(JSON.stringify(data)); 
-
-
-// Contrôle si l'ID est libre
-function controle() {
-    fetch("http://fbrc.esy.es/DWWM22053/Api/api.php/users")
-    .then((reponse) => {
-        //console.log(reponse.json())
-        return reponse.json();
-    })
-    .then((donnees) => {
-        var idUser = 0;
-
-        var tId = [];
-
-        for(let i = 0; i < donnees.users.records.length; i++) {
-            tId.push(donnees.users.records[i][idUser])
-        }
-        console.log(tId)
-    })
-}
-
-function donneId (tabID) {
-    for (let i in tabID) {
-        if (i !== tabID[i]) {
-            return i;
-        }
-    }
-}
