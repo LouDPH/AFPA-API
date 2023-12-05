@@ -54,8 +54,8 @@ function checkForm(event){
         return false;
     }
 
-    if (nom.length < 3){
-        erreur.innerHTML += "Le nom doit contenir 3 caractères minimum.";
+    if (nom.length < 2){
+        erreur.innerHTML += "Le nom doit contenir 2 caractères minimum.";
         nomInput.focus();
         return false;
     }
@@ -65,8 +65,8 @@ function checkForm(event){
         return false;
     }
 
-    if (prenom.length < 3){
-        erreur.innerHTML += "Le prénom doit contenir 3 caractères minimum.";
+    if (prenom.length < 2){
+        erreur.innerHTML += "Le prénom doit contenir 2 caractères minimum.";
         prenomInput.focus();
         return false;
     }

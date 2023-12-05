@@ -23,7 +23,7 @@ function controleDeChamp() {
     var prenomInput = document.getElementById("prenom").value;
     var emailInput = document.getElementById("email").value;
 
-    const emailRegex = /^[\w-]+(?:.[\w-]+)*@(?:[\w-]+.)+[a-zA-Z]{2,7}$/;
+    const emailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,7}))$/;
     
     var formValid = false
 
