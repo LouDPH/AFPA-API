@@ -36,8 +36,19 @@
         </div>
     </nav>
     <h1>Effacer un utilisateur</h1>
-    <form action="">
-        
+    <form action="index.html" class="my-3">
+        <input type="submit" value="Retour à l'acceuil">
     </form>
+
+    <form action="" method="get">
+        <input type="text" name="id" required="required" id="id"/>
+        <label for="id">ID </label>
+        <br><br>
+
+        <input type="submit" value="Envoyer" id="envoi"/>
+        <input type="reset" value="Rafraichir" id="refresh"/>
+    </form><br>
+
+    <div id="affichage"></div>
 </body>
 </html>
