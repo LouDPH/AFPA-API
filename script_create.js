@@ -45,12 +45,6 @@ function checkForm(event){
 
     var regexLettre = /[a-zA-Z]/;
 
-    if (validerEmail(email) === false) {
-        erreur.innerHTML += "La saisie de votre email est incorrecte.";
-        emailInput.focus();
-        return false;
-    }
-
     if (nom.length < 3){
         erreur.innerHTML += "Le nom doit contenir 3 caractères minimum.";
         nomInput.focus();
@@ -70,6 +64,12 @@ function checkForm(event){
     else if(!regexLettre.test(prenom)){
         erreur.innerHTML += "Le prénom ne doit comporter que des lettres.";
         prenomInput.focus();
+        return false;
+    }
+
+    if (validerEmail(email) === false) {
+        erreur.innerHTML += "La saisie de votre email est incorrecte.";
+        emailInput.focus();
         return false;
     }
 
