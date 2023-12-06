@@ -25,8 +25,9 @@ fetch("http://fbrc.esy.es/DWWM22053/Api/api.php/users")
     var liste = "";
 
     for(let i = 0; i < donnees.users.records.length; i++) {
-        liste += "Id de l'utilisateur = " + donnees.users.records[i][idUser] + ", Nom : " + donnees.users.records[i][nom] +
-        ", Prénom : " + donnees.users.records[i][prenom] + ", email : " + donnees.users.records[i][email] + "<br>";
+        liste += "<b>Id = </b>" + donnees.users.records[i][idUser] + ", <b>Nom : </b>" + donnees.users.records[i][nom] +
+                ", <b>Prénom : </b>" + donnees.users.records[i][prenom] + ", <b>email : </b>" + donnees.users.records[i][email]
+                + "</br>";
     }
     affichage.innerHTML = liste;
 });
@@ -90,8 +91,10 @@ function checkForm(event){
         for (let i = 1; i < tId.length; i++) {
             if (!tId.includes(i)) {
                 id = i;
-            } else {
-                id = tId.length + 1;
+                break;
+            }
+            else {
+                id = tId[parseInt(tId.length - 1)] + 1; // Ajoute un ID a la fin
             }
         }
 
